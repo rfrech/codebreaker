@@ -9,10 +9,22 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+/**
+ * Encapsulates a randomly generated secret code, along with all of the {@link Guess} instances
+ * submitted against that code.
+ */
 public class Code {
 
   private final char[] secret;
 
+  /**
+   * Initializes this instance by generating a random {@link String}, of length {@code length} with
+   * characters taken from {@code pool}. A source of randomness must be provided in {@code rng}.
+   *
+   * @param pool Characters allowed in the code.
+   * @param length Number of characters in the code.
+   * @param rng Source of randomness.
+   */
   public Code(String pool, int length, Random rng) {
     secret = new char[length];
     for (int i = 0; i < secret.length; i++) {
@@ -20,6 +32,10 @@ public class Code {
     }
  }
 
+  /**
+   *
+   * @return
+   */
   @Override
   public String toString() {
     return new String(secret);
@@ -33,6 +49,11 @@ public class Code {
     private final int correct;
     private final int close;
 
+    /**
+     * Initializes this instance by computing the number of characters in the {@code text} that are
+     * also in the {@link Code}, and are in the same position in both.
+     * @param text guess
+     */
     public Guess(String text) {
       this.text = text;
       int correct = 0;
@@ -85,14 +106,27 @@ public class Code {
         return String.format(STRING_FORMAT, text, correct, close);
     }
 
+    /**
+     * Returns the text of this instance.
+     * @return
+     */
     public String getText() {
       return text;
     }
 
+    /**
+     * Returns correct characters in guess
+     * @return
+     */
     public int getCorrect() {
       return correct;
     }
 
+    /**
+     * Returns the number of characters in the guess that are also in the code, but which are not in
+     * the same position in both. Note that any characters already matched in the code by
+     * {@link #getCorrect()} are not included in this result.
+     */
     public int getClose() {
       return close;
     }
